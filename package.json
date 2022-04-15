@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "npx tailwindcss -i ./src/assets/base.pcss -o ./src/style.css --minify && vue-cli-service build",
     "tailwind-watch": "npx tailwindcss -i ./src/assets/base.pcss -o ./src/style.css --watch",
     "tailwind-minify": "npx tailwindcss -i ./src/assets/base.pcss -o ./src/style.css --minify"
   },
