@@ -1,7 +1,7 @@
 module.exports = {
 	pwa: {
 		name: 'RD Lineup',
-		themeColor: '#4DBA87',
+		themeColor: '#c084fc',
 		msTileColor: '#000000',
 		appleMobileWebAppCapable: 'yes',
 		appleMobileWebAppStatusBarStyle: 'black',

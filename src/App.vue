@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+	<component :is="currentView" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Builder from "./components/Builder.vue";
+import Counter from "./components/Counter.vue";
+import EditView from "./components/EditView.vue";
+import Rules from "./components/Rules.vue";
+
+const routes = {
+	'/': Counter,
+	'/builder': Builder,
+	'/edit': EditView,
+	'/rules': Rules,
+}
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+	data() {
+		return {
+			currentPath: window.location.hash,
+		}
+	},
+	computed: {
+		currentView() {
+			return routes[this.currentPath.slice(1) || '/'] || Builder
+		},
+	},
+	methods: {},
+	mounted() {
+		window.addEventListener('hashchange', () => {
+			this.currentPath = window.location.hash
+		})
+	}
 }
 </script>
 
 <style>
+html, body {
+	@apply bg-zinc-900 text-zinc-100;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+	@apply my-0 mx-auto p-2 sm:p-8 text-base;
 }
 </style>
