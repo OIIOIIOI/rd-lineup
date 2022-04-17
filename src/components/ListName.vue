@@ -1,5 +1,5 @@
 <template>
-	<p :class="positionClass" class="py-1 cursor-pointer select-none">{{ skater.name }}</p>
+	<p :class="positionClass" class="select-none">{{ skater.number }}</p>
 </template>
 
 <script>

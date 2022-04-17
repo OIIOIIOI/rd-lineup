@@ -4,32 +4,30 @@ import ListName from './ListName.vue'
 </script>
 
 <template>
-	<main class="grid grid-cols-4 gap-2">
-<!--		<template v-for="i in 4">-->
-<!--			<counter-name :skater="mainStore.jammers[i-1]" @toggled="(s) => skaterToggled(s)"></counter-name>-->
-<!--			<counter-name :skater="mainStore.pivots[i-1]" @toggled="(s) => skaterToggled(s)"></counter-name>-->
-<!--			<counter-name :skater="mainStore.blockers[i-1]" @toggled="(s) => skaterToggled(s)"></counter-name>-->
-<!--		</template>-->
-<!--		<counter-name :skater="mainStore.blockers[4]" @toggled="(s) => skaterToggled(s)"></counter-name>-->
-<!--		<counter-name :skater="mainStore.blockers[5]" @toggled="(s) => skaterToggled(s)"></counter-name>-->
-<!--		<counter-name :skater="mainStore.blockers[6]" @toggled="(s) => skaterToggled(s)"></counter-name>-->
-		<counter-name v-for="s in mainStore.jammers" :skater="s" @toggled="(s) => skaterToggled(s)"></counter-name>
-		<counter-name v-for="s in mainStore.pivots" :skater="s" @toggled="(s) => skaterToggled(s)"></counter-name>
-		<counter-name v-for="s in mainStore.blockers" :skater="s" @toggled="(s) => skaterToggled(s)"></counter-name>
-	</main>
-	<footer class="grid grid-cols-8 gap-2 mt-4">
-		<button @dblclick="reset()" class="btn-reset">X</button>
-		<button @click="minusOne()" class="btn-minus">-1</button>
-		<a href="#/edit" class="btn-edit">E</a>
-		<button @click="clear()" class="btn-clear">CLEAR</button>
-		<button @click="sendToTheTrack()" class="btn-go">GO</button>
-	</footer>
-	<ul class="mt-4">
-		<li v-for="(j, i) in reversedJams" class="grid grid-cols-6">
-			<div>{{ jams.length - i }}</div>
-			<list-name v-for="s in j" :skater="s"></list-name>
-		</li>
-	</ul>
+	<div class="flex flex-col h-screen p-4">
+		<div ref="jams-list" class="flex-grow overflow-y-scroll">
+			<ul class="max-h-full pb-4">
+				<li v-for="(j, i) in jams" class="grid grid-cols-6">
+					<p class="select-none font-bold">{{ i+1 }}</p>
+					<list-name v-for="s in j" :skater="s"></list-name>
+				</li>
+			</ul>
+		</div>
+		<div class="pt-4 border-t">
+			<main class="grid grid-cols-4 gap-2">
+				<counter-name v-for="s in mainStore.jammers" :skater="s" @toggled="(s) => skaterToggled(s)"></counter-name>
+				<counter-name v-for="s in mainStore.pivots" :skater="s" @toggled="(s) => skaterToggled(s)"></counter-name>
+				<counter-name v-for="s in mainStore.blockers" :skater="s" @toggled="(s) => skaterToggled(s)"></counter-name>
+			</main>
+			<footer class="grid grid-cols-8 gap-2 mt-4">
+				<button @dblclick="reset()" class="btn-reset">X</button>
+				<button @click="minusOne()" class="btn-minus">-1</button>
+				<a href="#/edit" class="btn-edit">E</a>
+				<button @click="clear()" class="btn-clear">CLEAR</button>
+				<button @click="sendToTheTrack()" class="btn-go">GO</button>
+			</footer>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -81,6 +79,10 @@ export default {
 			})
 			this.jams.push(this.selected)
 			this.selected = []
+			
+			setTimeout(function () {
+				this.$refs["jams-list"].scrollTop = this.$refs["jams-list"].scrollHeight
+			}.bind(this), 100)
 		},
 		minusOne () {
 			if (this.selected.length === 0)

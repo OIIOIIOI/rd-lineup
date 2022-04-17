@@ -40,6 +40,6 @@ html, body {
 	@apply bg-zinc-900 text-zinc-100;
 }
 #app {
-	@apply my-0 mx-auto p-2 sm:p-8 text-base;
+	@apply my-0 mx-auto text-base;
 }
 </style>
