@@ -74,7 +74,7 @@ export const useMainStore = defineStore('main', {
 				// Pivots
 				new Skater("Cam", "817", Position.Pivot),
 				new Skater("BoobZ", "95", Position.Pivot, true),
-				new Skater("Constance", "89", Position.Pivot),
+				new Skater("Constance", "89", Position.Out),
 				new Skater("Steph", "87", Position.Pivot),
 			],
 		}
